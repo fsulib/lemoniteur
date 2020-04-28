@@ -1,0 +1,4 @@
+# Usage
+`issues.csv` is a CSV file containing all the PIDs for issues of Le Moniteur, along with a filename-friendly formatting of the issue name. The CSV file is formatted as `pid,IssueNameInAFilenameFriendlyFormat`.
+
+`harvester.php` is a PHP script that takes a CSV file in `pid,IssueNameInAFilenameFriendlyFormat` as an argument. For each line in the file, `harvester.php` gets the HTML of the issue page in DigiNole, scrapes the PIDs of the child pages of the issue from the HTML, and then requests the PDFs for each child page. Once downloaded, it uses [pdftk](https://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/) to trim the PDF down to 1 page (odd DigiNole bug in which some pages have additional duplicate thumbnail sized pages) and then combine all the downloaded trimmed pages into one file using the filename friendly issue name supplied in the CSV in a folder called `output` in the same directory that `harvester.php` was run in.
